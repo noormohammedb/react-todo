@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./App.css";
 // import reactDom from "react-dom";
 
+let date = new Date();
 function App() {
   const [mainTodo, setMainTodo] = useState([]);
   const [currentTodo, setCurrentTodo] = useState("");
@@ -14,7 +15,13 @@ function App() {
         </div>
         <div className="subHeading">
           <br />
-          <h2>Whoop, it's Wednesday 🌝 ☕ </h2>
+          <h2>
+            Whoop, it's &nbsp;
+            {date.toLocaleDateString(date, {
+              weekday: "long",
+            })}
+            🌝 ☕
+          </h2>
         </div>
         <div className="input">
           <input
@@ -36,7 +43,6 @@ function App() {
                   date: new Date(),
                 },
               ]);
-              // console.log(mainTodo);
             }}
           ></i>
         </div>
@@ -76,8 +82,6 @@ function App() {
                         className="fas fa-times"
                         data-id={todoIteration.id}
                         onClick={(deleteClickEvent) => {
-                          console.log("delelte event clicked");
-                          console.log(deleteClickEvent.target.dataset.id);
                           setMainTodo(
                             mainTodo.filter((deleteFilterIteration) => {
                               if (
@@ -133,8 +137,6 @@ function App() {
                         className="fas fa-times"
                         data-id={todoIteration.id}
                         onClick={(deleteClickEvent) => {
-                          console.log("delelte event clicked");
-                          console.log(deleteClickEvent.target.dataset.id);
                           setMainTodo(
                             mainTodo.filter((deleteFilterIteration) => {
                               if (
@@ -185,15 +187,17 @@ function App() {
                           );
                         }}
                       />
-                      <p>{todoIteration.todoValue}</p>
+                      <p
+                        className={todoIteration.todoStatus ? "completed" : ""}
+                      >
+                        {todoIteration.todoValue}
+                      </p>
                     </div>
                     <div className="right">
                       <i
                         className="fas fa-times"
                         data-id={todoIteration.id}
                         onClick={(deleteClickEvent) => {
-                          console.log("delelte event clicked");
-                          console.log(deleteClickEvent.target.dataset.id);
                           setMainTodo(
                             mainTodo.filter((deleteFilterIteration) => {
                               if (
