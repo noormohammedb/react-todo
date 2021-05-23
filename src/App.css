@@ -19,7 +19,8 @@ body {
 }
 
 .app h1,
-h2 {
+h2,
+h3 {
   color: white;
 }
 
@@ -84,4 +85,14 @@ h2 {
   font-weight: 700;
   font-style: normal;
   color: grey;
+}
+
+.text-center {
+  text-align: center;
+  margin: 0.2rem 0;
+  padding: 0.4rem 0;
+}
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
 }
