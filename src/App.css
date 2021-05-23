@@ -62,6 +62,10 @@ h3 {
   align-items: center;
   flex-direction: column;
 }
+.app .todos .list {
+  min-height: 10rem;
+  /* border: #4252ff solid 0.4rem; */
+}
 .app .todos .todo {
   margin-top: 0.8em;
   width: 20em;
@@ -72,6 +76,18 @@ h3 {
   align-items: center;
   border-radius: 6px;
   padding: 5px;
+}
+
+.app .todos .active {
+  border: #bbb516 solid 0.3rem;
+  border-radius: 1rem;
+}
+.app .todos .complete {
+  background-color: #1ed32d;
+}
+
+.app .todos .delete {
+  background-color: #d31e3f;
 }
 .app .todos .todo .left {
   display: flex;
@@ -84,9 +100,15 @@ h3 {
   font-size: medium;
   font-weight: 700;
   font-style: normal;
-  color: grey;
 }
 
+.app .todos .complete .left p {
+  color: #020631;
+}
+
+.app .todos .delete .left p {
+  color: #bdbeb2;
+}
 .text-center {
   text-align: center;
   margin: 0.2rem 0;

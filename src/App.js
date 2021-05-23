@@ -36,17 +36,18 @@ function App() {
                   date: new Date(),
                 },
               ]);
-              console.log(mainTodo);
+              // console.log(mainTodo);
             }}
           ></i>
         </div>
         <div className="todos">
-          <div className="active">
+          <div className="active-list list">
             <h3 className="text-center underline">Active</h3>
             {mainTodo.map((todoIteration, mapIndex) => {
-              if (!todoIteration.todoStatus) {
+              console.info(mainTodo);
+              if (!todoIteration.todoStatus && !todoIteration.todoDeleted) {
                 return (
-                  <div className="todo" key={mapIndex}>
+                  <div className="todo active" key={mapIndex}>
                     <div className="left">
                       <input
                         type="checkbox"
@@ -54,21 +55,14 @@ function App() {
                         checked={todoIteration.todoStatus}
                         id={todoIteration.id}
                         onChange={(changeEvent) => {
-                          // console.log(mainTodo);
-                          // console.log("changeEvent.target.id");
-                          // console.log(changeEvent.target.id);
                           setMainTodo(
                             mainTodo.filter((filterIteration) => {
-                              // console.log("inside filter");
-                              // console.log("filterIteration.id");
-                              // console.log(filterIteration.id);
                               if (
                                 parseInt(changeEvent.target.id) ===
                                 filterIteration.id
                               ) {
                                 filterIteration.todoStatus =
                                   changeEvent.target.checked;
-                                return true;
                               }
                               return true;
                             })
@@ -78,20 +72,39 @@ function App() {
                       <p>{todoIteration.todoValue}</p>
                     </div>
                     <div className="right">
-                      <i className="fas fa-times"></i>
+                      <i
+                        className="fas fa-times"
+                        data-id={todoIteration.id}
+                        onClick={(deleteClickEvent) => {
+                          console.log("delelte event clicked");
+                          console.log(deleteClickEvent.target.dataset.id);
+                          setMainTodo(
+                            mainTodo.filter((deleteFilterIteration) => {
+                              if (
+                                todoIteration.id ===
+                                parseInt(deleteClickEvent.target.dataset.id)
+                              ) {
+                                todoIteration.todoDeleted = true;
+                              }
+                              return true;
+                            })
+                          );
+                        }}
+                      ></i>
                     </div>
                   </div>
                 );
               }
+              return null;
             })}
           </div>
-          <div className="completed">
+          <div className="completed list">
             <h3 className="text-center underline">Completed</h3>
 
             {mainTodo.map((todoIteration, filterIndex) => {
-              if (todoIteration.todoStatus) {
+              if (todoIteration.todoStatus && !todoIteration.todoDeleted) {
                 return (
-                  <div className="todo" key={filterIndex}>
+                  <div className="todo complete" key={filterIndex}>
                     <div className="left">
                       <input
                         type="checkbox"
@@ -99,14 +112,66 @@ function App() {
                         id={todoIteration.id}
                         checked={todoIteration.todoStatus}
                         onChange={(changeEvent) => {
-                          // console.log(mainTodo);
-                          // console.log("changeEvent.target.id");
-                          // console.log(changeEvent.target.id);
                           setMainTodo(
                             mainTodo.filter((filterIteration) => {
-                              // console.log("inside filter");
-                              // console.log("filterIteration.id");
-                              // console.log(filterIteration.id);
+                              if (
+                                parseInt(changeEvent.target.id) ===
+                                filterIteration.id
+                              ) {
+                                filterIteration.todoStatus =
+                                  changeEvent.target.checked;
+                              }
+                              return true;
+                            })
+                          );
+                        }}
+                      />
+                      <p>{todoIteration.todoValue}</p>
+                    </div>
+                    <div className="right">
+                      <i
+                        className="fas fa-times"
+                        data-id={todoIteration.id}
+                        onClick={(deleteClickEvent) => {
+                          console.log("delelte event clicked");
+                          console.log(deleteClickEvent.target.dataset.id);
+                          setMainTodo(
+                            mainTodo.filter((deleteFilterIteration) => {
+                              if (
+                                deleteFilterIteration.id ===
+                                parseInt(deleteClickEvent.target.dataset.id)
+                              ) {
+                                deleteFilterIteration.todoDeleted =
+                                  !deleteFilterIteration.todoDeleted;
+                              }
+                              return true;
+                            })
+                          );
+                        }}
+                      ></i>
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            })}
+          </div>
+          <div className="deleted list">
+            <h3 className="text-center underline">Deleted</h3>
+
+            {mainTodo.map((todoIteration, filterIndex) => {
+              if (todoIteration.todoDeleted) {
+                return (
+                  <div className="todo delete" key={filterIndex}>
+                    <div className="left">
+                      <input
+                        type="checkbox"
+                        name=""
+                        id={todoIteration.id}
+                        checked={todoIteration.todoStatus}
+                        onChange={(changeEvent) => {
+                          setMainTodo(
+                            mainTodo.filter((filterIteration) => {
                               if (
                                 parseInt(changeEvent.target.id) ===
                                 filterIteration.id
@@ -123,15 +188,31 @@ function App() {
                       <p>{todoIteration.todoValue}</p>
                     </div>
                     <div className="right">
-                      <i className="fas fa-times"></i>
+                      <i
+                        className="fas fa-times"
+                        data-id={todoIteration.id}
+                        onClick={(deleteClickEvent) => {
+                          console.log("delelte event clicked");
+                          console.log(deleteClickEvent.target.dataset.id);
+                          setMainTodo(
+                            mainTodo.filter((deleteFilterIteration) => {
+                              if (
+                                todoIteration.id ===
+                                parseInt(deleteClickEvent.target.dataset.id)
+                              ) {
+                                todoIteration.todoDeleted = false;
+                              }
+                              return true;
+                            })
+                          );
+                        }}
+                      ></i>
                     </div>
                   </div>
                 );
               }
+              return null;
             })}
-          </div>
-          <div className="deleted ">
-            <h3 className="text-center underline">Deleted</h3>
           </div>
         </div>
       </div>
