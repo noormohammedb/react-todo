@@ -1,0 +1,14 @@
+pages:
+  image: node:14.15.5
+  stage: deploy
+  script:
+    - npm install
+    - npm run build
+    - rm -rf public
+    - cp build/index.html build/404.html
+    - mv build public
+  artifacts:
+    paths:
+      - public
+  only:
+    - deployee
